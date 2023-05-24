@@ -1,27 +1,27 @@
-import React from 'react';
+import React from 'react'
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 
-export default function SearchFilter() {
-  
+export default function SearchFilter({ categories, areas, selectChange }) {
   return (
-    <div className='searchFilter'>
-      <Form>
-        <Form.Group>
-          <Form.Label>Search</Form.Label>
-          <Form.Control type='text' placeholder='Enter search here'/>
-        </Form.Group> 
+    <>
+      <Form.Group>
+        <Form.Label>Categories</Form.Label>
+        <Form.Select defaultValue={'Select an option'} onChange={selectChange}>
+          <option disabled hidden>Select an option</option>
+          <optgroup label="Categories">
+            {categories.map(category =>
+              <option value={category.strCategory} label={category.strCategory} key={category.strCategory}></option>
+            )}
+          </optgroup>
 
-        <Form.Group>
-          <Form.Label>Categories</Form.Label>
-          <Form.Select>
-            <option>Test 1</option>
-            <option>Test 2</option>
-          </Form.Select>
-        </Form.Group>
-        <Button type='submit'>Submit</Button>
-      </Form>
-      
-    </div>
+          <optgroup label="Areas">
+            {areas.map(area =>
+              <option value={area.strArea} label={area.strArea} key={area.strArea}></option>
+            )}
+          </optgroup>
+        </Form.Select>
+      </Form.Group>
+
+    </>
   )
 }
