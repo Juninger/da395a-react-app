@@ -1,7 +1,5 @@
 
-import FoodItem from "./components/FoodItem";
 import SearchFilter from "./components/SearchFilter";
-import FoodItemModal from "./components/FoodItemModal";
 import FoodList from "./components/FoodList";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -13,11 +11,15 @@ import axios from 'axios';
 function App() {
 
   const baseURL = 'https://www.themealdb.com/api/json/v1/1/';
-  const [categories, setCategories] = useState([]);
-  const [areas, setAreas] = useState([]);
+
+  const [categories, setCategories] = useState([]); //maybe move this + useEffect to <SearchFilter>
+  const [areas, setAreas] = useState([]); //maybe move this + useEffect to <SearchFilter>
+
   const [searchResults, setSearchResults] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
   const filterFieldRef = useRef();
+
+  const [savedMeals, setSavedMeals] = useState([]);
 
   useEffect(() => {
     //TODO: Error handling
@@ -31,7 +33,7 @@ function App() {
       .then((response) => {
         setAreas(response.data.meals);
       });
-  }, []);
+  }, []); //no dependencies ==> only called ONCE on initial render (twice during Strict-mode) 
 
   // Called when user changes selected value in the list of categories / areas (in <SearchFilter>)
   function getRecipes(event) {
@@ -70,21 +72,6 @@ function App() {
     setFilteredResults(filtered);
   }
 
-
-
-
-
-  const [modalShow, setModalShow] = useState(false);
-  const [foodListSaved, setFoodListSaved] = useState([]);
-  const [modalData, setModalData] = useState(null);
-
-  const updateModalData = (item) => {
-    setModalData(item);
-    console.log(item);
-    console.log(modalData);
-    setModalShow(true);
-  }
-
   const meals = [{
     "idMeal": "52771",
     "strMeal": "Spicy Arrabiata Penne",
@@ -109,7 +96,6 @@ function App() {
   }
   ]
 
-
   return (
     <Container>
       <h1>Recipe App</h1>
@@ -117,12 +103,12 @@ function App() {
         <Col md={12} xl={6}>
           <div>
             <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
-            <FoodList items={filteredResults} saveButton={true} activateModal={() => updateModalData()}></FoodList>
+            <FoodList meals={filteredResults} saveButton={true}></FoodList>
           </div>
         </Col>
         <Col md={12} xl={6}>
           <MyRecipesInfo></MyRecipesInfo>
-          <FoodList items={filteredResults} saveButton={true} activateModal={() => updateModalData()}></FoodList>
+          <FoodList meals={filteredResults} saveButton={true}></FoodList>
         </Col>
       </Row>
 
