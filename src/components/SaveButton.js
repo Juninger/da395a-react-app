@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
+import Button from 'react-bootstrap/Button';
 
 export default function SaveButton() {
   return (
-    <div>SaveButton</div>
+    <div className='saveButton'>
+      <Button variant='success'>Save</Button>
+    </div>
   )
 }
