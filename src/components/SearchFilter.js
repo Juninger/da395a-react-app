@@ -1,7 +1,12 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form';
 
-export default function SearchFilter({ categories, areas, selectChange }) {
+export default function SearchFilter({ categories, areas, selectChange, filterChange, filterRef }) {
+
+  function stringifyObj(object) {
+    return JSON.stringify(object)
+  }
+
   return (
     <>
       <Form.Group>
@@ -10,16 +15,21 @@ export default function SearchFilter({ categories, areas, selectChange }) {
           <option disabled hidden>Select an option</option>
           <optgroup label="Categories">
             {categories.map(category =>
-              <option value={category.strCategory} label={category.strCategory} key={category.strCategory}></option>
+              <option value={stringifyObj(category)} label={category.strCategory} key={category.strCategory}></option>
             )}
           </optgroup>
 
           <optgroup label="Areas">
             {areas.map(area =>
-              <option value={area.strArea} label={area.strArea} key={area.strArea}></option>
+              <option value={stringifyObj(area)} label={area.strArea} key={area.strArea}></option>
             )}
           </optgroup>
         </Form.Select>
+      </Form.Group>
+
+      <Form.Group>
+        <Form.Label>Filter results</Form.Label>
+        <Form.Control ref={filterRef} type='text' placeholder='Enter a meal...' onChange={filterChange}></Form.Control>
       </Form.Group>
 
     </>
