@@ -16,6 +16,8 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [areas, setAreas] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [filteredResults, setFilteredResults] = useState([]);
+  const filterFieldRef = useRef();
 
   useEffect(() => {
     //TODO: Error handling
@@ -33,6 +35,7 @@ function App() {
 
   // Called when user changes selected value in the list of categories / areas (in <SearchFilter>)
   function getRecipes(event) {
+    filterFieldRef.current.value = '';
     const selectedOption = JSON.parse(event.target.value);
 
     let searchType = '';
@@ -52,12 +55,26 @@ function App() {
     axios.get(searchString) //TODO: Error handling
       .then((response) => {
         console.log(response.data.meals);
+        setFilteredResults(response.data.meals); //initially, searchResults and filteredResults should be equal
         setSearchResults(response.data.meals);
       })
   }
 
+  //called when user types in the filter-field
+  function filterRecipes(event) {
+    const text = event.target.value;
+
+    const filtered = searchResults.filter((meal) =>
+      meal.strMeal.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredResults(filtered);
+  }
+
+
+
+
+
   const [modalShow, setModalShow] = useState(false);
-  const [foodListAPI, setFoodListAPI] = useState([]);
   const [foodListSaved, setFoodListSaved] = useState([]);
   const [modalData, setModalData] = useState(null);
 
@@ -99,13 +116,13 @@ function App() {
       <Row>
         <Col md={12} xl={6}>
           <div>
-            <SearchFilter categories={categories} areas={areas} selectChange={getRecipes}></SearchFilter>
-            <FoodList items={searchResults} saveButton={true} activateModal={() => updateModalData()}></FoodList>
+            <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
+            <FoodList items={filteredResults} saveButton={true} activateModal={() => updateModalData()}></FoodList>
           </div>
         </Col>
         <Col md={12} xl={6}>
           <MyRecipesInfo></MyRecipesInfo>
-          <FoodList items={searchResults} saveButton={true} activateModal={() => updateModalData()}></FoodList>
+          <FoodList items={filteredResults} saveButton={true} activateModal={() => updateModalData()}></FoodList>
         </Col>
       </Row>
 

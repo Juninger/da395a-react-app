@@ -1,7 +1,7 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form';
 
-export default function SearchFilter({ categories, areas, selectChange }) {
+export default function SearchFilter({ categories, areas, selectChange, filterChange, filterRef }) {
 
   function stringifyObj(object) {
     return JSON.stringify(object)
@@ -25,6 +25,11 @@ export default function SearchFilter({ categories, areas, selectChange }) {
             )}
           </optgroup>
         </Form.Select>
+      </Form.Group>
+
+      <Form.Group>
+        <Form.Label>Filter results</Form.Label>
+        <Form.Control ref={filterRef} type='text' placeholder='Enter a meal...' onChange={filterChange}></Form.Control>
       </Form.Group>
 
     </>
