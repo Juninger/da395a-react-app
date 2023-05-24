@@ -4,41 +4,35 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 
-export default function FoodItemModal(props) {
+
+export default function FoodItemModal({show, data, onHide}) {
   return (
-    <Modal show={props.show}>
+    <Modal show={show} className='modal-xl'>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          heaheh
+          {data.strMeal}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className="show-grid">
         <Container>
           <Row>
-            <Col xs={12} md={8}>
-              Img?
+            <Col xs={6} md={6}>
+              <Image src={data.strMealThumb} fluid='true'/>
             </Col>
-            <Col xs={6} md={4}>
-              Video?
+            <Col xs={6} md={6}>
+              <iframe class='responsive-iframe' src={data.strYoutube} height='75%' width='100%' title="YouTube video player"></iframe>
             </Col>
           </Row>
 
           <Row>
-            <Col xs={6} md={4}>
-              Text
-            </Col>
-            <Col xs={6} md={4}>
-              mer text
-            </Col>
-            <Col xs={6} md={4}>
-              mer text
-            </Col>
+              {data.strInstructions}
           </Row>
         </Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
   )

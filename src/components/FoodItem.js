@@ -3,20 +3,28 @@ import Card from 'react-bootstrap/Card';
 import SaveButton from './SaveButton';
 import DeleteButton from './DeleteButton';
 import Button from 'react-bootstrap/Button'
+import { useState } from 'react';
+import FoodItemModal from './FoodItemModal';
 
 
-export default function FoodItem( props ) {
+export default function FoodItem({item, saveButton, activateModal}) {
+  const [modalShow, setModalShow] = useState(false);
+  const title = item.strMeal;
+  const description = item.strInstructions;
+  const thumbnail = item.strMealThumb;
+
   return (
     <>
       <Card>
         <Card.Body>
-          <Card.Title>Recipe name</Card.Title>
-          <Card.Body>Recipe info</Card.Body>
-          <Card.Img src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.w8GN82aamP9fvPiFRjKpiAHaEU%26pid%3DApi&f=1&ipt=904c262a09dd5f042782b17270bf07cbbbd45f12ce4f97b845823de97127c303&ipo=images'></Card.Img>
-          {props.saveButton ? <SaveButton/> : <DeleteButton/>} 
-          <Button variant='secondary' onClick={props.activateModal}>Show recipe</Button>
+          <Card.Title>{title}</Card.Title>
+          <Card.Body>{description}</Card.Body>
+          <Card.Img src={thumbnail}></Card.Img>
+          {saveButton ? <SaveButton/> : <DeleteButton/>} 
+          <Button variant='secondary' onClick={() => setModalShow(true)}>Show recipe</Button>
         </Card.Body>
       </Card>
+      <FoodItemModal show={modalShow} data={item} onHide={() => setModalShow(false)}></FoodItemModal>
     </>
   )
 
