@@ -6,8 +6,9 @@ export default function SearchFilter({ categories }) {
     <>
       <h5>Categories</h5>
       <Form.Select aria-label="Default select example">
+        <option disabled>CATEGORIES</option>
         {categories.map(category =>
-          <option key={category.idCategory}>{category.strCategory}</option>
+          <option key={category.strCategory}>{category.strCategory}</option>
         )}
       </Form.Select>
     </>

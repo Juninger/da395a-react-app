@@ -13,10 +13,14 @@ function App() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    axios.get(baseURL + 'categories.php')
+    axios.get(baseURL + 'list.php?c=list')
     .then((response) => {
-      setCategories(response.data.categories);
+      console.log(response.data);
+
+      setCategories(response.data.meals);
     });
+
+    //TODO: fetch more areas for filter/search?
   }, []);
 
 
