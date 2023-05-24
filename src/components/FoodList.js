@@ -1,8 +1,9 @@
 import React from 'react'
 
-export default function FoodList() {
+export default function FoodList(props) {
   return (
-    <div>FoodList</div>
+    <ul>
+      
+    </ul>
   )
 }
-
