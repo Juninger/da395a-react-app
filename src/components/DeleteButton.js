@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
+import Button from 'react-bootstrap/Button';
 
 export default function DeleteButton() {
   return (
-    <div>DeleteButton</div>
+    <div className='deleteButton'>
+      <Button variant='danger'>X</Button>
+    </div>
   )
 }
