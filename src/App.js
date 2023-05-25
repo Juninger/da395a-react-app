@@ -85,6 +85,12 @@ function App() {
     }
   }
 
+  // called when user clicks button to delete a meal
+  function deleteMeal(mealID) {
+    const filtered = savedMeals.filter((meal) => meal.idMeal !== mealID);
+    setSavedMeals(filtered);
+  }
+
   //called whenever useState of savedMeals is updated, triggers re-render of saved meals
   useEffect(() => {
     //no need to check for duplicates before saving here since we do it in saveMeal()
@@ -101,7 +107,7 @@ function App() {
         </Col>
         <Col md={6} xl={6}>
           <MyRecipesInfo></MyRecipesInfo>
-          <FoodList meals={savedMeals} saveButton={true}></FoodList>
+          <FoodList meals={savedMeals} saveButton={false} deleteMeal={deleteMeal}></FoodList>
         </Col>
       </Row>
 
