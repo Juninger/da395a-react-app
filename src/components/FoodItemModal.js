@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,9 +10,36 @@ import { Container } from 'react-bootstrap';
 
 export default function FoodItemModal({ show, meal, onHide }) {
 
+  function ingredientsMethod() {
+    let objectVals = Object.values(meal);
+    let ingredientsTemp = [];
+
+
+    for (let i = 9; i < 28; i++) {
+      if (objectVals[i] !== "" && objectVals[i] !== null) {
+        ingredientsTemp.push(objectVals[i]);
+
+      }
+    }
+
+    return ingredientsTemp;
+  }
+
+  function measuresMethod() {
+    let objectVals = Object.values(meal);
+    let measuresTemp = [];
+
+    for (let i = 29; i < 48; i++) {
+      if (objectVals[i] !== "" && objectVals[i] !== null) {
+        measuresTemp.push(objectVals[i]);
+      }
+    }
+    return measuresTemp;
+  }
+
   const YOUTUBE_ID = extractVideoID(meal.strYoutube);
-  const [measure, setMeasures] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
+  const [measures, setMeasures] = useState(ingredientsMethod);
+  const [ingredients, setIngredients] = useState(measuresMethod);
 
   function extractVideoID(url) { //also known as: 'not writing regex for this'
     try {
@@ -22,35 +49,6 @@ export default function FoodItemModal({ show, meal, onHide }) {
     } catch (error) { //no video in response or invalid URL
       return null;
     }
-  }
-
-  const ingredientsAndMeasures1 = () => {
-    let objectVals = Object.values(meal);
-    let ingredients = [];
-    let measures = [];
-    
-    for (let i = 9; i < 28; i++) {
-      if(objectVals[i] !== "" && objectVals[i] !== null) {
-        ingredients.push(<li><span>{objectVals[i]}</span></li>);
-        measures.push(<li><span>{objectVals[i+20]}</span></li>);
-      }
-    }
-    setIngredients(ingredients);
-    setMeasures(measures);
-  }
-
-  const ingredientsAndMeasures = () => {
-    let objectVals = Object.values(meal);
-    let ingredients = [];
-    let measures = [];
-    
-    for (let i = 9; i < 28; i++) {
-      if(objectVals[i] !== "" && objectVals[i] !== null) {
-        ingredients.push(<li><span>{objectVals[i+20]}</span><span>{objectVals[i]}</span></li>);
-      }
-    }
-    
-    setIngredients(ingredients);
   }
 
   return (
@@ -65,9 +63,9 @@ export default function FoodItemModal({ show, meal, onHide }) {
             <Col md={12} lg={12}>
               {YOUTUBE_ID && <div className='ratio ratio-16x9'>
                 <iframe //only show embed if we have a valid video-id
-                src={"https://www.youtube.com/embed/" + YOUTUBE_ID}
-                title="YouTube Video"
-                allowFullScreen
+                  src={"https://www.youtube.com/embed/" + YOUTUBE_ID}
+                  title="YouTube Video"
+                  allowFullScreen
                 ></iframe>
               </div>}
             </Col>
@@ -75,19 +73,24 @@ export default function FoodItemModal({ show, meal, onHide }) {
           <hr></hr>
           <Row>
             <Col md={12} lg={3}>
-              <Image src={meal.strMealThumb} alt={meal.strMeal} fluid="true" roundedCircle/>
+              <Image src={meal.strMealThumb} alt={meal.strMeal} fluid="true" roundedCircle />
               {/*<img src={meal.strMealThumb} alt={meal.strMeal} />*/}
             </Col>
             <Col >
               <Stack>
                 <h2>Ingredients</h2>
-                <ul>
-                  <Container>
-                    {ingredientsAndMeasures1}
-                    {ingredients}
-                    {measure}
-                  </Container>
-                </ul>
+
+                <Container>
+                  <Row>
+                    <Col md='auto' xs={6}>
+                      {ingredients.map((item) => <p>• {item}</p>)}
+                    </Col>
+                    <Col md='auto' xs={6}>
+                      {measures.map((item) => <p>{item}</p>)}
+                    </Col>
+                  </Row>
+                </Container>
+
                 <hr></hr>
 
                 <h2>Instructions</h2>
@@ -96,7 +99,7 @@ export default function FoodItemModal({ show, meal, onHide }) {
             </Col>
           </Row>
         </Stack>
-        
+
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
