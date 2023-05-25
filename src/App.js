@@ -12,6 +12,7 @@ function App() {
 
   const localMeals = JSON.parse(localStorage.getItem('meals')) || [];
   const [savedMeals, setSavedMeals] = useState(localMeals);
+  const [localFilter, setLocalFilter] = useState('');
 
   const baseURL = 'https://www.themealdb.com/api/json/v1/1/';
 
@@ -55,11 +56,8 @@ function App() {
       searchString = baseURL + 'filter.php?a=' + searchType;
     }
 
-    console.log(searchString);
-
     axios.get(searchString) //TODO: Error handling
       .then((response) => {
-        console.log(response.data.meals);
         setFilteredResults(response.data.meals); //initially, searchResults and filteredResults should be equal
         setSearchResults(response.data.meals);
       })
@@ -74,6 +72,16 @@ function App() {
     );
     setFilteredResults(filtered);
   }
+
+  //called when user types in the filter-field for saved meals
+  function filterLocalMeals(event) {
+    setLocalFilter(event.target.value);
+  }
+
+  //filters saved meals to render those that match user's search
+  const filteredLocalMeals = savedMeals.filter((meal) =>
+    meal.strMeal.toLowerCase().includes(localFilter.toLowerCase())
+  );
 
   //called when user clicks button to save a meal
   function saveMeal(newMeal) {
@@ -106,14 +114,13 @@ function App() {
           <FoodList meals={filteredResults} saveButton={true} saveMeal={saveMeal}></FoodList>
         </Col>
         <Col md={6} xl={6}>
-          <MyRecipesInfo></MyRecipesInfo>
-          <FoodList meals={savedMeals} saveButton={false} deleteMeal={deleteMeal}></FoodList>
+          <MyRecipesInfo setLocalFilter={filterLocalMeals}></MyRecipesInfo>
+          <FoodList meals={filteredLocalMeals} saveButton={false} deleteMeal={deleteMeal}></FoodList>
         </Col>
       </Row>
 
       {/* Alert that is displayed when user tries to save an already stored meal */}
       <WarningToast show={showToast} onClose={() => setShowToast(false)} />
-
     </Container>
   );
 }

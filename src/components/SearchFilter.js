@@ -10,7 +10,7 @@ export default function SearchFilter({ categories, areas, selectChange, filterCh
   return (
     <>
       <Form.Group>
-        <Form.Label>Categories</Form.Label>
+        <Form.Label>What do you want to eat?</Form.Label>
         <Form.Select defaultValue={'Select an option'} onChange={selectChange}>
           <option disabled hidden>Select an option</option>
           <optgroup label="Categories">

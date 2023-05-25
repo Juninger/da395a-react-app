@@ -5,7 +5,6 @@ import DeleteButton from './DeleteButton';
 import { useState } from 'react';
 import FoodItemModal from './FoodItemModal';
 import axios from 'axios';
-import Stack from 'react-bootstrap/Stack';
 
 
 export default function FoodItem({ meal, saveButton, saveMeal, deleteMeal }) {
