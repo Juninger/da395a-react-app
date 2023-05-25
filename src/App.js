@@ -1,4 +1,4 @@
-
+import WarningToast from "./components/WarningToast";
 import SearchFilter from "./components/SearchFilter";
 import FoodList from "./components/FoodList";
 import Row from 'react-bootstrap/Row';
@@ -22,6 +22,7 @@ function App() {
   const [filteredResults, setFilteredResults] = useState([]);
   const filterFieldRef = useRef();
 
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     //TODO: Error handling
@@ -75,14 +76,18 @@ function App() {
   }
 
   //called when user clicks button to save a meal
-  function saveMeal(meal) {
-    //TODO: Don't allow multiple instances of the same meal in savedMeals
-    setSavedMeals((savedMeals) => [...savedMeals, meal]);
+  function saveMeal(newMeal) {
+    //we only allow the user to save a meal if it is not already stored 
+    if (!savedMeals.some((meal) => meal.idMeal === newMeal.idMeal)) {
+      setSavedMeals((prevMeals) => [...prevMeals, newMeal]);
+    } else {
+      setShowToast(true);
+    }
   }
 
   //called whenever useState of savedMeals is updated, triggers re-render of saved meals
   useEffect(() => {
-    //TODO: Don't allow multiple instances of the same meal in localStorage
+    //no need to check for duplicates before saving here since we do it in saveMeal()
     localStorage.setItem('meals', JSON.stringify(savedMeals));
   }, [savedMeals]);
 
@@ -99,6 +104,10 @@ function App() {
           <FoodList meals={savedMeals} saveButton={true}></FoodList>
         </Col>
       </Row>
+
+      {/* Alert that is displayed when user tries to save an already stored meal */}
+      <WarningToast show={showToast} onClose={() => setShowToast(false)} />
+
     </Container>
   );
 }
