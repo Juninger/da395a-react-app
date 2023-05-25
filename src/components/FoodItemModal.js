@@ -3,6 +3,8 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
+import Stack from 'react-bootstrap/Stack';
 
 
 export default function FoodItemModal({ show, meal, onHide }) {
@@ -21,28 +23,42 @@ export default function FoodItemModal({ show, meal, onHide }) {
 
   return (
 
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={onHide} centered size='xl'>
       <Modal.Header closeButton>
         <Modal.Title>{meal.strMeal}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Row>
-          <Col xs={6} md={6}>
-            <img src={meal.strMealThumb} alt={meal.strMeal} />
-          </Col>
-          <Col xs={6} md={6}>
-            {YOUTUBE_ID && <iframe //only show embed if we have a valid video-id
-              width="100%"
-              height="315"
-              src={"https://www.youtube.com/embed/" + YOUTUBE_ID}
-              title="YouTube Video"
-              allowFullScreen
-            ></iframe>}
-          </Col>
-        </Row>
-        <Row>
-          <p>{meal.strInstructions}</p>
-        </Row>
+        <Stack gap={3}>
+          <Row>
+            <Col md={12} lg={12}>
+              <div className='ratio ratio-16x9'>
+                {YOUTUBE_ID && <iframe //only show embed if we have a valid video-id
+                src={"https://www.youtube.com/embed/" + YOUTUBE_ID}
+                title="YouTube Video"
+                allowFullScreen
+                ></iframe>}
+              </div>
+            </Col>
+          </Row>
+          <hr></hr>
+          <Row>
+            <Col md={12} lg={3}>
+              <Image src={meal.strMealThumb} alt={meal.strMeal} fluid="true" roundedCircle/>
+              {/*<img src={meal.strMealThumb} alt={meal.strMeal} />*/}
+            </Col>
+            <Col >
+              <Stack>
+                <h2>Ingredients</h2>
+                
+                <hr></hr>
+
+                <h2>Instructions</h2>
+                <p>{meal.strInstructions}</p>
+              </Stack>
+            </Col>
+          </Row>
+        </Stack>
+        
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>

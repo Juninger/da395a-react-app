@@ -5,6 +5,7 @@ import DeleteButton from './DeleteButton';
 import { useState } from 'react';
 import FoodItemModal from './FoodItemModal';
 import axios from 'axios';
+import Stack from 'react-bootstrap/Stack';
 
 
 export default function FoodItem({ meal, saveButton }) {
@@ -29,16 +30,13 @@ export default function FoodItem({ meal, saveButton }) {
 
   return (
     <>
-      <div onClick={handleItemClick}>
         <Card >
-          <Card.Body>
-            <Card.Title>{meal.strMeal}</Card.Title>
-            <Card.Body>{meal.strInstructions}</Card.Body>
+          <Card.Body onClick={handleItemClick}>
+            <Card.Title className='mb-3'>{meal.strMeal}</Card.Title>
             <Card.Img src={meal.strMealThumb}></Card.Img>
-            {saveButton ? <SaveButton /> : <DeleteButton />}
           </Card.Body>
+            {saveButton ? <SaveButton /> : <DeleteButton />}
         </Card>
-      </div>
       {mealDetails && (
         <FoodItemModal show={showModal} onHide={hideModal} meal={mealDetails}></FoodItemModal>
       )}
