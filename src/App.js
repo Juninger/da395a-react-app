@@ -10,6 +10,9 @@ import axios from 'axios';
 
 function App() {
 
+  const localMeals = JSON.parse(localStorage.getItem('meals')) || [];
+  const [savedMeals, setSavedMeals] = useState(localMeals);
+
   const baseURL = 'https://www.themealdb.com/api/json/v1/1/';
 
   const [categories, setCategories] = useState([]); //maybe move this + useEffect to <SearchFilter>
@@ -19,7 +22,6 @@ function App() {
   const [filteredResults, setFilteredResults] = useState([]);
   const filterFieldRef = useRef();
 
-  const [savedMeals, setSavedMeals] = useState([]);
 
   useEffect(() => {
     //TODO: Error handling
@@ -62,7 +64,7 @@ function App() {
       })
   }
 
-  //called when user types in the filter-field
+  //called when user types in the filter-field for search results
   function filterRecipes(event) {
     const text = event.target.value;
 
@@ -72,29 +74,17 @@ function App() {
     setFilteredResults(filtered);
   }
 
-  const meals = [{
-    "idMeal": "52771",
-    "strMeal": "Spicy Arrabiata Penne",
-    "strDrinkAlternate": null,
-    "strCategory": "Vegetarian",
-    "strArea": "Italian",
-    "strInstructions": "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm.",
-    "strMealThumb": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
-    "strTags": "Pasta,Curry",
-    "strYoutube": "https://www.youtube.com/watch?v=1IszT_guI08"
-  },
-  {
-    "idMeal": "52771",
-    "strMeal": "Spicy Arrabiata Penne",
-    "strDrinkAlternate": null,
-    "strCategory": "Vegetarian",
-    "strArea": "Italian",
-    "strInstructions": "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm.",
-    "strMealThumb": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
-    "strTags": "Pasta,Curry",
-    "strYoutube": "https://www.youtube.com/watch?v=1IszT_guI08"
+  //called when user clicks button to save a meal
+  function saveMeal(meal) {
+    //TODO: Don't allow multiple instances of the same meal in savedMeals
+    setSavedMeals((savedMeals) => [...savedMeals, meal]);
   }
-  ]
+
+  //called whenever useState of savedMeals is updated, triggers re-render of saved meals
+  useEffect(() => {
+    //TODO: Don't allow multiple instances of the same meal in localStorage
+    localStorage.setItem('meals', JSON.stringify(savedMeals));
+  }, [savedMeals]);
 
   return (
     <Container>
@@ -102,14 +92,14 @@ function App() {
       <Row>
         <Col md={6} xl={6}>
           <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
-          <FoodList meals={filteredResults} saveButton={true}></FoodList>
+          <FoodList meals={filteredResults} saveButton={true} saveMeal={saveMeal}></FoodList>
         </Col>
         <Col md={6} xl={6}>
           <MyRecipesInfo></MyRecipesInfo>
-          <FoodList meals={filteredResults} saveButton={true}></FoodList>
+          <FoodList meals={savedMeals} saveButton={true}></FoodList>
         </Col>
       </Row>
-  </Container>
+    </Container>
   );
 }
 

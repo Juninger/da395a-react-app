@@ -28,36 +28,35 @@ export default function FoodItemModal({ show, meal, onHide }) {
         <Modal.Title>{meal.strMeal}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Stack gap={3}>
-          <Row>
-            <Col md={12} lg={12}>
-              <div className='ratio ratio-16x9'>
-                {YOUTUBE_ID && <iframe //only show embed if we have a valid video-id
-                src={"https://www.youtube.com/embed/" + YOUTUBE_ID}
-                title="YouTube Video"
-                allowFullScreen
-                ></iframe>}
-              </div>
-            </Col>
-          </Row>
-          <hr></hr>
-          <Row>
-            <Col md={12} lg={3}>
-              <Image src={meal.strMealThumb} alt={meal.strMeal} fluid="true" roundedCircle/>
-              {/*<img src={meal.strMealThumb} alt={meal.strMeal} />*/}
-            </Col>
-            <Col >
-              <Stack>
-                <h2>Ingredients</h2>
-                
-                <hr></hr>
+          <Stack gap={3}>
+            <Row>
+              <Col md={12} lg={12}>
+                { YOUTUBE_ID &&
+                <div className='ratio ratio-16x9'>
+                  <iframe //only show embed if we have a valid video-id
+                    src={"https://www.youtube.com/embed/" + YOUTUBE_ID}
+                    title="YouTube Video"
+                    allowFullScreen
+                  ></iframe>
+                </div> }
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12} lg={3}>
+                <Image src={meal.strMealThumb} alt={meal.strMeal} fluid="true" roundedCircle />
+              </Col>
+              <Col >
+                <Stack>
+                  <h2>Ingredients</h2>
 
-                <h2>Instructions</h2>
-                <p>{meal.strInstructions}</p>
-              </Stack>
-            </Col>
-          </Row>
-        </Stack>
+                  <hr></hr>
+
+                  <h2>Instructions</h2>
+                  <p>{meal.strInstructions}</p>
+                </Stack>
+              </Col>
+            </Row>
+          </Stack>
         
       </Modal.Body>
       <Modal.Footer>

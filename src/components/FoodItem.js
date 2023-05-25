@@ -8,7 +8,7 @@ import axios from 'axios';
 import Stack from 'react-bootstrap/Stack';
 
 
-export default function FoodItem({ meal, saveButton }) {
+export default function FoodItem({ meal, saveButton, saveMeal }) {
   const [showModal, setShowModal] = useState(false);
   const [mealDetails, setMealDetails] = useState(null);
 
@@ -35,7 +35,7 @@ export default function FoodItem({ meal, saveButton }) {
             <Card.Title className='mb-3'>{meal.strMeal}</Card.Title>
             <Card.Img src={meal.strMealThumb}></Card.Img>
           </Card.Body>
-            {saveButton ? <SaveButton /> : <DeleteButton />}
+            {saveButton ? <SaveButton saveMeal={() => saveMeal(meal)} meal={meal}/> : <DeleteButton />}
         </Card>
       {mealDetails && (
         <FoodItemModal show={showModal} onHide={hideModal} meal={mealDetails}></FoodItemModal>
