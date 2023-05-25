@@ -100,19 +100,16 @@ function App() {
     <Container>
       <h1>Recipe App</h1>
       <Row>
-        <Col md={12} xl={6}>
-          <div>
-            <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
-            <FoodList meals={filteredResults} saveButton={true}></FoodList>
-          </div>
+        <Col md={6} xl={6}>
+          <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
+          <FoodList meals={filteredResults} saveButton={true}></FoodList>
         </Col>
-        <Col md={12} xl={6}>
+        <Col md={6} xl={6}>
           <MyRecipesInfo></MyRecipesInfo>
           <FoodList meals={filteredResults} saveButton={true}></FoodList>
         </Col>
       </Row>
-
-    </Container>
+  </Container>
   );
 }
 
