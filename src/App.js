@@ -111,10 +111,12 @@ function App() {
       <Row>
         <Col md={6} xl={6}>
           <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
+          <hr/>
           <FoodList meals={filteredResults} saveButton={true} saveMeal={saveMeal}></FoodList>
         </Col>
         <Col md={6} xl={6}>
           <MyRecipesInfo setLocalFilter={filterLocalMeals}></MyRecipesInfo>
+          <hr/>
           <FoodList meals={filteredLocalMeals} saveButton={false} deleteMeal={deleteMeal}></FoodList>
         </Col>
       </Row>

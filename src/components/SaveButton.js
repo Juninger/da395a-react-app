@@ -5,7 +5,7 @@ export default function SaveButton({ saveMeal }) {
 
   return (
     <div className='saveButton mx-3 mb-3'>
-      <Button variant='success' className='col-md-12 mx-auto' onClick={saveMeal}>Save</Button>
+      <Button variant='success' className='w-100' onClick={saveMeal}>Save</Button>
     </div>
   )
 }
