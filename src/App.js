@@ -5,8 +5,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import MyRecipesInfo from './components/MyRecipesInfo';
+import TitleNavbar from "./components/TitleNavbar";
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import Stack from "react-bootstrap/Stack";
 
 function App() {
 
@@ -107,28 +109,25 @@ function App() {
 
   return (
     <>
-    <Container>
-      <Row>
-        <Col>
-          <h1>Recipe App</h1>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={6} xl={6}>
-          <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
-          <hr/>
-          <FoodList meals={filteredResults} saveButton={true} saveMeal={saveMeal}></FoodList>
-        </Col>
-        <Col md={6} xl={6}>
-          <MyRecipesInfo setLocalFilter={filterLocalMeals} numRecipes={savedMeals.length}></MyRecipesInfo>
-          <hr/>
-          <FoodList meals={filteredLocalMeals} saveButton={false} deleteMeal={deleteMeal}></FoodList>
-        </Col>
-      </Row>
+      <TitleNavbar></TitleNavbar>
+      
+        <Container className="mt-4 pt-5 mb-5">
+          <Row>
+            <Col md={6} xl={6}>
+              <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
+              <hr />
+              <FoodList meals={filteredResults} saveButton={true} saveMeal={saveMeal}></FoodList>
+            </Col>
+            <Col md={6} xl={6}>
+              <MyRecipesInfo setLocalFilter={filterLocalMeals} numRecipes={savedMeals.length}></MyRecipesInfo>
+              <hr />
+              <FoodList meals={filteredLocalMeals} saveButton={false} deleteMeal={deleteMeal}></FoodList>
+            </Col>
+          </Row>
 
-      {/* Alert that is displayed when user tries to save an already stored meal */}
-      <WarningToast show={showToast} onClose={() => setShowToast(false)} />
-    </Container>
+          {/* Alert that is displayed when user tries to save an already stored meal */}
+          <WarningToast show={showToast} onClose={() => setShowToast(false)} />
+        </Container>
     </>
   );
 }
