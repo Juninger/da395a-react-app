@@ -1,4 +1,4 @@
-
+import WarningToast from "./components/WarningToast";
 import SearchFilter from "./components/SearchFilter";
 import FoodList from "./components/FoodList";
 import Row from 'react-bootstrap/Row';
@@ -10,6 +10,10 @@ import axios from 'axios';
 
 function App() {
 
+  const localMeals = JSON.parse(localStorage.getItem('meals')) || [];
+  const [savedMeals, setSavedMeals] = useState(localMeals);
+  const [localFilter, setLocalFilter] = useState('');
+
   const baseURL = 'https://www.themealdb.com/api/json/v1/1/';
 
   const [categories, setCategories] = useState([]); //maybe move this + useEffect to <SearchFilter>
@@ -19,7 +23,7 @@ function App() {
   const [filteredResults, setFilteredResults] = useState([]);
   const filterFieldRef = useRef();
 
-  const [savedMeals, setSavedMeals] = useState([]);
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     //TODO: Error handling
@@ -52,17 +56,14 @@ function App() {
       searchString = baseURL + 'filter.php?a=' + searchType;
     }
 
-    console.log(searchString);
-
     axios.get(searchString) //TODO: Error handling
       .then((response) => {
-        console.log(response.data.meals);
         setFilteredResults(response.data.meals); //initially, searchResults and filteredResults should be equal
         setSearchResults(response.data.meals);
       })
   }
 
-  //called when user types in the filter-field
+  //called when user types in the filter-field for search results
   function filterRecipes(event) {
     const text = event.target.value;
 
@@ -72,20 +73,57 @@ function App() {
     setFilteredResults(filtered);
   }
 
+  //called when user types in the filter-field for saved meals
+  function filterLocalMeals(event) {
+    setLocalFilter(event.target.value);
+  }
+
+  //filters saved meals to render those that match user's search
+  const filteredLocalMeals = savedMeals.filter((meal) =>
+    meal.strMeal.toLowerCase().includes(localFilter.toLowerCase())
+  );
+
+  //called when user clicks button to save a meal
+  function saveMeal(newMeal) {
+    //we only allow the user to save a meal if it is not already stored 
+    if (!savedMeals.some((meal) => meal.idMeal === newMeal.idMeal)) {
+      setSavedMeals((prevMeals) => [...prevMeals, newMeal]);
+    } else {
+      setShowToast(true);
+    }
+  }
+
+  // called when user clicks button to delete a meal
+  function deleteMeal(mealID) {
+    const filtered = savedMeals.filter((meal) => meal.idMeal !== mealID);
+    setSavedMeals(filtered);
+  }
+
+  //called whenever useState of savedMeals is updated, triggers re-render of saved meals
+  useEffect(() => {
+    //no need to check for duplicates before saving here since we do it in saveMeal()
+    localStorage.setItem('meals', JSON.stringify(savedMeals));
+  }, [savedMeals]);
+
   return (
     <Container>
       <h1>Recipe App</h1>
       <Row>
         <Col md={6} xl={6}>
           <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
-          <FoodList meals={filteredResults} saveButton={true}></FoodList>
+          <hr/>
+          <FoodList meals={filteredResults} saveButton={true} saveMeal={saveMeal}></FoodList>
         </Col>
         <Col md={6} xl={6}>
-          <MyRecipesInfo></MyRecipesInfo>
-          <FoodList meals={filteredResults} saveButton={true}></FoodList>
+          <MyRecipesInfo setLocalFilter={filterLocalMeals}></MyRecipesInfo>
+          <hr/>
+          <FoodList meals={filteredLocalMeals} saveButton={false} deleteMeal={deleteMeal}></FoodList>
         </Col>
       </Row>
-  </Container>
+
+      {/* Alert that is displayed when user tries to save an already stored meal */}
+      <WarningToast show={showToast} onClose={() => setShowToast(false)} />
+    </Container>
   );
 }
 
