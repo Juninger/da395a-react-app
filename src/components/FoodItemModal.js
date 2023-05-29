@@ -14,14 +14,11 @@ export default function FoodItemModal({ show, meal, onHide }) {
     let objectVals = Object.values(meal);
     let ingredientsTemp = [];
 
-
     for (let i = 9; i < 28; i++) {
-      if (objectVals[i] !== "" && objectVals[i] !== null) {
+      if (objectVals[i] !== null && !(objectVals[i].trim() === "")) {
         ingredientsTemp.push(objectVals[i]);
-
       }
     }
-
     return ingredientsTemp;
   }
 
@@ -30,7 +27,7 @@ export default function FoodItemModal({ show, meal, onHide }) {
     let measuresTemp = [];
 
     for (let i = 29; i < 48; i++) {
-      if (objectVals[i] !== "" && objectVals[i] !== null) {
+      if (objectVals[i] !== null && !(objectVals[i].trim() === "")) {
         measuresTemp.push(objectVals[i]);
       }
     }
@@ -38,8 +35,8 @@ export default function FoodItemModal({ show, meal, onHide }) {
   }
 
   const YOUTUBE_ID = extractVideoID(meal.strYoutube);
-  const [measures, setMeasures] = useState(ingredientsMethod);
-  const [ingredients, setIngredients] = useState(measuresMethod);
+  const [measures, setMeasures] = useState(measuresMethod);
+  const [ingredients, setIngredients] = useState(ingredientsMethod);
 
   function extractVideoID(url) { //also known as: 'not writing regex for this'
     try {
@@ -70,30 +67,21 @@ export default function FoodItemModal({ show, meal, onHide }) {
               </div>}
             </Col>
           </Row>
-          <hr></hr>
+          <hr/>
           <Row>
             <Col md={12} lg={3}>
               <Image src={meal.strMealThumb} alt={meal.strMeal} fluid="true" roundedCircle />
-              {/*<img src={meal.strMealThumb} alt={meal.strMeal} />*/}
             </Col>
             <Col >
-              <Stack>
+              <Stack gap={0}>
                 <h2>Ingredients</h2>
 
-                <Container>
-                  <Row>
-                    <Col md='auto' xs={6}>
-                      {ingredients.map((item) => <p>• {item}</p>)}
-                    </Col>
-                    <Col md='auto' xs={6}>
-                      {measures.map((item) => <p>{item}</p>)}
-                    </Col>
-                  </Row>
-                </Container>
-
-                <hr></hr>
+                {ingredients.map((item, index) => <p>• {measures[index]} {item}</p>)}
+                
+                <hr/>
 
                 <h2>Instructions</h2>
+
                 <p>{meal.strInstructions}</p>
               </Stack>
             </Col>

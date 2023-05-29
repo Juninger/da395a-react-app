@@ -30,8 +30,8 @@ export default function FoodItem({ meal, saveButton }) {
 
   return (
     <>
-        <Card >
-          <Card.Body onClick={handleItemClick}>
+        <Card style={{cursor: "pointer"}}>
+          <Card.Body onClick={handleItemClick} >
             <Card.Title className='mb-3'>{meal.strMeal}</Card.Title>
             <Card.Img src={meal.strMealThumb}></Card.Img>
           </Card.Body>
