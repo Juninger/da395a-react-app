@@ -5,7 +5,7 @@ export default function MyRecipesInfo({ setLocalFilter, numRecipes }) {
 
   return (
     <>
-      <h3>Your recipes</h3>
+      <h5>Your recipes</h5>
         <Form.Group>
           <Form.Label>Filter results</Form.Label>
           <Form.Control type='text' placeholder='Enter a meal...' onChange={setLocalFilter}></Form.Control>
