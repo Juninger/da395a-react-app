@@ -106,8 +106,13 @@ function App() {
   }, [savedMeals]);
 
   return (
+    <>
     <Container>
-      <h1>Recipe App</h1>
+      <Row>
+        <Col>
+          <h1>Recipe App</h1>
+        </Col>
+      </Row>
       <Row>
         <Col md={6} xl={6}>
           <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
@@ -115,7 +120,7 @@ function App() {
           <FoodList meals={filteredResults} saveButton={true} saveMeal={saveMeal}></FoodList>
         </Col>
         <Col md={6} xl={6}>
-          <MyRecipesInfo setLocalFilter={filterLocalMeals}></MyRecipesInfo>
+          <MyRecipesInfo setLocalFilter={filterLocalMeals} numRecipes={savedMeals.length}></MyRecipesInfo>
           <hr/>
           <FoodList meals={filteredLocalMeals} saveButton={false} deleteMeal={deleteMeal}></FoodList>
         </Col>
@@ -124,6 +129,7 @@ function App() {
       {/* Alert that is displayed when user tries to save an already stored meal */}
       <WarningToast show={showToast} onClose={() => setShowToast(false)} />
     </Container>
+    </>
   );
 }
 

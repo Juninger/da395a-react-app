@@ -9,6 +9,7 @@ export default function SearchFilter({ categories, areas, selectChange, filterCh
 
   return (
     <>
+      <h3>Search</h3>
       <Form.Group>
         <Form.Label>What do you want to eat?</Form.Label>
         <Form.Select defaultValue={'Select an option'} onChange={selectChange}>
