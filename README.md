@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# DA395A Meal Finder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+This project was created by Group 1 for the final assignment in 'Cross-platform Applications with Web Technologies' (DA395A).
 
-In the project directory, you can run:
+The application allows the user to filter meals from various categories, and save them to their own collection of recipes.
 
-### `npm start`
+#### Members
+- Marcus Juninger  
+- Nicholas Narvell  
+- Eric Simonsson  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To get started with the project, follow these steps:
 
-### `npm test`
+1. Clone the repository:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+        git clone https://github.com/Juninger/da395a-react-app
 
-### `npm run build`
+2. Open 'da395a-react-app' in your preferred editor. Visual Studio Code recommended.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Open the integrated terminal, or another terminal of your choice.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. In the terminal, navigate to the location where you saved 'da395a-react-app':
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+        cd path/to/da395a-react-app
 
-### `npm run eject`
+5. Install the required packages by running the following command:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+        npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+6. Wait for the packages to finish installing.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Usage
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To run the project, follow these steps:
 
-## Learn More
+1. In the terminal, type the following command:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+        npm start
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. Wait for the project to compile and start running.
 
-### Code Splitting
+3. Open your browser and visit the website at [localhost:3000](http://localhost:3000) or as indicated in the terminal.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. Enjoy!
 
-### Analyzing the Bundle Size
+## External APIs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+This project uses the following external API to find meals:
 
-### Making a Progressive Web App
+- TheMealDB: [API documentation](https://www.themealdb.com/api.php)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Frameworks & Libraries
 
-### Advanced Configuration
+The project utilizes the following frameworks and libraries:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- React: [Official website](https://reactjs.org/)
+- react-bootstrap: [GitHub repository](https://github.com/react-bootstrap/react-bootstrap)
+- Axios: [GitHub repository](https://github.com/axios/axios)
