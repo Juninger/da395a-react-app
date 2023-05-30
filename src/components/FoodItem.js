@@ -29,7 +29,7 @@ export default function FoodItem({ meal, saveButton, saveMeal, deleteMeal }) {
 
   return (
     <>
-      <Card style={{cursor: "pointer"}}>
+      <Card style={{ cursor: "pointer" }}>
         <Card.Body onClick={handleItemClick}>
           <Card.Title className='mb-3'>{meal.strMeal}</Card.Title>
           <Card.Img src={meal.strMealThumb}></Card.Img>

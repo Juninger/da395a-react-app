@@ -67,7 +67,7 @@ export default function FoodItemModal({ show, meal, onHide }) {
               </div>}
             </Col>
           </Row>
-          <hr/>
+          <hr />
           <Row>
             <Col md={12} lg={3}>
               <Image src={meal.strMealThumb} alt={meal.strMeal} fluid="true" roundedCircle />
@@ -78,8 +78,8 @@ export default function FoodItemModal({ show, meal, onHide }) {
 
 
                 {ingredients.map((item, index) => <p>• {measures[index]} {item}</p>)}
-                
-                <hr/>
+
+                <hr />
 
                 <h2>Instructions</h2>
 

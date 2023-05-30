@@ -110,24 +110,24 @@ function App() {
   return (
     <>
       <TitleNavbar></TitleNavbar>
-      
-        <Container className="mt-4 pt-5 mb-5">
-          <Row>
-            <Col md={6} xl={6}>
-              <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
-              <hr />
-              <FoodList meals={filteredResults} saveButton={true} saveMeal={saveMeal}></FoodList>
-            </Col>
-            <Col md={6} xl={6}>
-              <MyRecipesInfo setLocalFilter={filterLocalMeals} numRecipes={savedMeals.length}></MyRecipesInfo>
-              <hr />
-              <FoodList meals={filteredLocalMeals} saveButton={false} deleteMeal={deleteMeal}></FoodList>
-            </Col>
-          </Row>
 
-          {/* Alert that is displayed when user tries to save an already stored meal */}
-          <WarningToast show={showToast} onClose={() => setShowToast(false)} />
-        </Container>
+      <Container className="mt-4 pt-5 mb-5">
+        <Row>
+          <Col md={6} xl={6}>
+            <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
+            <hr />
+            <FoodList meals={filteredResults} saveButton={true} saveMeal={saveMeal}></FoodList>
+          </Col>
+          <Col md={6} xl={6}>
+            <MyRecipesInfo setLocalFilter={filterLocalMeals} numRecipes={savedMeals.length}></MyRecipesInfo>
+            <hr />
+            <FoodList meals={filteredLocalMeals} saveButton={false} deleteMeal={deleteMeal}></FoodList>
+          </Col>
+        </Row>
+
+        {/* Alert that is displayed when user tries to save an already stored meal */}
+        <WarningToast show={showToast} onClose={() => setShowToast(false)} />
+      </Container>
     </>
   );
 }
