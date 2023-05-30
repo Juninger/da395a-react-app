@@ -58,5 +58,6 @@ This project uses the following external API to find meals:
 The project utilizes the following frameworks and libraries:
 
 - React: [Official website](https://reactjs.org/)
-- react-bootstrap: [GitHub repository](https://github.com/react-bootstrap/react-bootstrap)
+- Bootstrap: [Official website](https://getbootstrap.com/)
+- react-bootstrap: [Official website](https://react-bootstrap.github.io/)
 - Axios: [GitHub repository](https://github.com/axios/axios)
