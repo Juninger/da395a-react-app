@@ -8,7 +8,6 @@ import MyRecipesInfo from './components/MyRecipesInfo';
 import TitleNavbar from "./components/TitleNavbar";
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import Stack from "react-bootstrap/Stack";
 
 function App() {
 
@@ -28,17 +27,19 @@ function App() {
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
-    //TODO: Error handling
     axios.get(baseURL + 'list.php?c=list') //fetches list of categories
       .then((response) => {
         setCategories(response.data.meals);
+      })
+      .catch((error) => {
+        console.error("Fetching categories went wrong. Error message: " + error);
       });
 
-    //TODO: Error handling
+    
     axios.get(baseURL + 'list.php?a=list') //fetches list of areas
       .then((response) => {
         setAreas(response.data.meals);
-      });
+      }).catch((error) => {console.error("Fetching areas went wrong. Error message: " + error)});
   }, []); //no dependencies ==> only called ONCE on initial render (twice during Strict-mode) 
 
   // Called when user changes selected value in the list of categories / areas (in <SearchFilter>)
@@ -58,11 +59,14 @@ function App() {
       searchString = baseURL + 'filter.php?a=' + searchType;
     }
 
-    axios.get(searchString) //TODO: Error handling
+    axios.get(searchString)
       .then((response) => {
         setFilteredResults(response.data.meals); //initially, searchResults and filteredResults should be equal
         setSearchResults(response.data.meals);
       })
+      .catch((error) =>{
+        console.error("The search was not able to go through. Error message: " + error)
+      });
   }
 
   //called when user types in the filter-field for search results

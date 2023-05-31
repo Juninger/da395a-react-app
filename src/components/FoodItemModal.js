@@ -5,11 +5,11 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import Stack from 'react-bootstrap/Stack';
-import { Container } from 'react-bootstrap';
 
-
+//Modal component that functions as a more information dense display
 export default function FoodItemModal({ show, meal, onHide }) {
 
+  //Gets all ingredients from prop meal
   function ingredientsMethod() {
     let objectVals = Object.values(meal);
     let ingredientsTemp = [];
@@ -22,6 +22,7 @@ export default function FoodItemModal({ show, meal, onHide }) {
     return ingredientsTemp;
   }
 
+  //Gets all measures from prop meal
   function measuresMethod() {
     let objectVals = Object.values(meal);
     let measuresTemp = [];
@@ -33,6 +34,7 @@ export default function FoodItemModal({ show, meal, onHide }) {
     }
     return measuresTemp;
   }
+
 
   const YOUTUBE_ID = extractVideoID(meal.strYoutube);
   const [measures, setMeasures] = useState(measuresMethod);
@@ -58,6 +60,7 @@ export default function FoodItemModal({ show, meal, onHide }) {
         <Stack gap={3}>
           <Row>
             <Col md={12} lg={12}>
+              {/* Conditional rendering based on if recipe has accompanying YouTube-video */}
               {YOUTUBE_ID && <div className='ratio ratio-16x9'>
                 <iframe //only show embed if we have a valid video-id
                   src={"https://www.youtube.com/embed/" + YOUTUBE_ID}
@@ -76,6 +79,7 @@ export default function FoodItemModal({ show, meal, onHide }) {
               <Stack gap={0}>
                 <h2>Ingredients</h2>
                 <ul>
+                  {/* Maps all ingredients to list, and attaches measure infront if exists */}
                   {ingredients.map((item, index) => <li> {measures[index]} {item}</li>)}
                 </ul>
 

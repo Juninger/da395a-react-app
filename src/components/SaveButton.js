@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 
+//Button component functioning as a save button to add recipe to saved recipe list
 export default function SaveButton({ saveMeal }) {
 
   return (
