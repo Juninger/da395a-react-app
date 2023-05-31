@@ -16,6 +16,8 @@ The choice of using React for this project was due to its wide usage and thrivin
 
 Initially we considered using Vue or Svelte. Vue could probably have been a solid choice since it seems to fit small scale projects. Svelte was considered as it appears to be a well received framework that might further rise in popularity in the coming years. 
 
+In the end we chose React as we felt the documentation for Svelte was somewhat lacking in comparison, and Vue would have taken longer to learn. During the time of development we also worked on finishing our Bachelor's theses, which meant we had limited time.
+
 ## Installation
 
 To get started with the project, follow these steps:
