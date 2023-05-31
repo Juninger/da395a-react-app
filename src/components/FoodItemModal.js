@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -37,8 +37,8 @@ export default function FoodItemModal({ show, meal, onHide }) {
 
 
   const YOUTUBE_ID = extractVideoID(meal.strYoutube);
-  const [measures, setMeasures] = useState(measuresMethod);
-  const [ingredients, setIngredients] = useState(ingredientsMethod);
+  const measures = measuresMethod();
+  const ingredients = ingredientsMethod();
 
   function extractVideoID(url) { //also known as: 'not writing regex for this'
     try {
@@ -80,7 +80,7 @@ export default function FoodItemModal({ show, meal, onHide }) {
                 <h2>Ingredients</h2>
                 <ul>
                   {/* Maps all ingredients to list, and attaches measure infront if exists */}
-                  {ingredients.map((item, index) => <li> {measures[index]} {item}</li>)}
+                  {ingredients.map((item, index) => <li key={index}> {measures[index]} {item}</li>)}
                 </ul>
 
                 <hr />
