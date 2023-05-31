@@ -4,10 +4,10 @@ import FoodList from "./components/FoodList";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import MyRecipesInfo from './components/MyRecipesInfo';
 import TitleNavbar from "./components/TitleNavbar";
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import LocalSearchFilter from "./components/LocalSearchFilter";
 
 function App() {
 
@@ -17,30 +17,11 @@ function App() {
 
   const baseURL = 'https://www.themealdb.com/api/json/v1/1/';
 
-  const [categories, setCategories] = useState([]); //maybe move this + useEffect to <SearchFilter>
-  const [areas, setAreas] = useState([]); //maybe move this + useEffect to <SearchFilter>
-
   const [searchResults, setSearchResults] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
   const filterFieldRef = useRef();
 
   const [showToast, setShowToast] = useState(false);
-
-  useEffect(() => {
-    axios.get(baseURL + 'list.php?c=list') //fetches list of categories
-      .then((response) => {
-        setCategories(response.data.meals);
-      })
-      .catch((error) => {
-        console.error("Fetching categories went wrong. Error message: " + error);
-      });
-
-    
-    axios.get(baseURL + 'list.php?a=list') //fetches list of areas
-      .then((response) => {
-        setAreas(response.data.meals);
-      }).catch((error) => {console.error("Fetching areas went wrong. Error message: " + error)});
-  }, []); //no dependencies ==> only called ONCE on initial render (twice during Strict-mode) 
 
   // Called when user changes selected value in the list of categories / areas (in <SearchFilter>)
   function getRecipes(event) {
@@ -64,7 +45,7 @@ function App() {
         setFilteredResults(response.data.meals); //initially, searchResults and filteredResults should be equal
         setSearchResults(response.data.meals);
       })
-      .catch((error) =>{
+      .catch((error) => {
         console.error("The search was not able to go through. Error message: " + error)
       });
   }
@@ -118,12 +99,12 @@ function App() {
       <Container className="mt-4 pt-5 mb-5">
         <Row>
           <Col md={6} xl={6}>
-            <SearchFilter filterRef={filterFieldRef} categories={categories} areas={areas} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
+            <SearchFilter filterRef={filterFieldRef} selectChange={getRecipes} filterChange={filterRecipes}></SearchFilter>
             <hr />
             <FoodList meals={filteredResults} saveButton={true} saveMeal={saveMeal}></FoodList>
           </Col>
           <Col md={6} xl={6}>
-            <MyRecipesInfo setLocalFilter={filterLocalMeals} numRecipes={savedMeals.length}></MyRecipesInfo>
+            <LocalSearchFilter setLocalFilter={filterLocalMeals} numRecipes={savedMeals.length}></LocalSearchFilter>
             <hr />
             <FoodList meals={filteredLocalMeals} saveButton={false} deleteMeal={deleteMeal}></FoodList>
           </Col>
