@@ -4,12 +4,17 @@
 
 This project was created by Group 1 for the final assignment in 'Cross-platform Applications with Web Technologies' (DA395A).
 
-The application allows the user to filter meals from various categories, and save them to their own collection of recipes.
+The application is built in React and allows the user to filter meals from various categories, and save them to their own collection of recipes.
 
 #### Members
 - Marcus Juninger  
 - Nicholas Narvell  
-- Eric Simonsson  
+- Eric Simonsson
+
+### Framework motivation
+The choice of using React for this project was due to its wide usage and thriving community, and we the developers have some previous experience of using this framework. In addition to this, due to our lack of experience with doing high-quality frontend design, the ability to use existing design libraries like react-bootstrap was enticing. 
+
+Initially we considered using Vue or Svelte. Vue could probably have been a solid choice since it seems to fit small scale projects. Svelte was considered as it appears to be a well received framework that might further rise in popularity in the coming years. 
 
 ## Installation
 
