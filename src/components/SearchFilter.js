@@ -1,6 +1,7 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form';
 
+//Header component for recipe list, includes dropdown and filtering and recieves several props
 export default function SearchFilter({ categories, areas, selectChange, filterChange, filterRef }) {
 
   function stringifyObj(object) {
@@ -13,6 +14,7 @@ export default function SearchFilter({ categories, areas, selectChange, filterCh
       <Form.Group>
         <Form.Label>What do you want to eat?</Form.Label>
         <Form.Select defaultValue={'Select an option'} onChange={selectChange}>
+          {/* Populates dropdown menu with categories and areas */}
           <option disabled hidden>Select an option</option>
           <optgroup label="Categories">
             {categories.map(category =>

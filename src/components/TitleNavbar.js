@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 
+//Navbar component, containing webpage name and link to github
 export default function TitleNavbar() {
     return (
         <Navbar fixed="top" bg="dark" variant='dark'>

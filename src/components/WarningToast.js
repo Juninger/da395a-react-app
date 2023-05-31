@@ -2,6 +2,7 @@ import React from 'react';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 
+//Toast component, shows as warning message if user tries to save already saved recipe
 const WarningToast = ({ show, onClose }) => {
     return (
         <ToastContainer position='top-center' className="p-5 fixed-top" style={{ zIndex: 9999 }}>

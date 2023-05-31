@@ -1,8 +1,9 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 
+//Header for list containing saved recipes, includes filtering and display of amount of saved recipes
 export default function MyRecipesInfo({ setLocalFilter, numRecipes }) {
-
+  
   return (
     <>
       <h5>Your recipes</h5>
