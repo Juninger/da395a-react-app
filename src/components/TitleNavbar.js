@@ -7,7 +7,7 @@ export default function TitleNavbar() {
     return (
         <Navbar fixed="top" bg="dark" variant='dark'>
             <Container>
-                <Navbar.Brand>Recipe search</Navbar.Brand>
+                <Navbar.Brand>Meal Finder</Navbar.Brand>
 
                 <Navbar.Text>
                     <span>
