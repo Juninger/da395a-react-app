@@ -18,7 +18,6 @@ export default function FoodItem({ meal, saveButton, saveMeal, deleteMeal }) {
 
     axios.get(url + id) //fetches specific meal with more details
       .then((response) => {
-        console.log(response.data.meals[0]);
         setMealDetails(response.data.meals[0]);
         setShowModal(true);
       })
