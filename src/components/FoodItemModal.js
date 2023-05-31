@@ -75,9 +75,9 @@ export default function FoodItemModal({ show, meal, onHide }) {
             <Col >
               <Stack gap={0}>
                 <h2>Ingredients</h2>
-
-
-                {ingredients.map((item, index) => <p>• {measures[index]} {item}</p>)}
+                <ul>
+                  {ingredients.map((item, index) => <li> {measures[index]} {item}</li>)}
+                </ul>
 
                 <hr />
 
